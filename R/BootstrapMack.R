@@ -13,6 +13,8 @@
 #'
 #' @examples bm <- BootstrapMack(triangleExampleEngland, 1000)
 #'
+#' @import data.table
+#'
 #' @export
 BootstrapMack <- function(triangle, nBoot = 1000){
 

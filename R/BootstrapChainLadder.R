@@ -13,6 +13,8 @@
 #'
 #' @examples bcl <- BootstrapChainLadder(triangleExampleEngland, 1000)
 #'
+#' @import data.table
+#'
 #' @export
 BootstrapChainLadder <- function(triangle, nBoot = 1000){
 
