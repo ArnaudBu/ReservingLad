@@ -44,10 +44,10 @@ BootstrapChainLadder <- function(triangle, nBoot = 1000){
   decTriangleRecalc <- Decumulate(triangleRecalc)
 
   # Calculation of pearson residuals
-  res <- (decTriangle - decTriangleRecalc) / sqrt(decTriangleRecalc)
+  res <- (decTriangle - decTriangleRecalc) / ifelse(decTriangleRecalc == 0, 1,sqrt(abs(decTriangleRecalc)))
   phi <- colMeans(res^2, na.rm = TRUE) *n0/ (n0-p)
   phiprime <- sum(res^2, na.rm = TRUE) / (n0-p)
-  phi[n] <- 0.000001
+  phi[phi==0] <- 0.000001
   phi <- t(matrix(rep(phi, n), nrow = n))
   res <- res / sqrt(phi)  #*sqrt(n0/(n0-p))
 
@@ -56,7 +56,7 @@ BootstrapChainLadder <- function(triangle, nBoot = 1000){
     resEch <- res
     resEch[!(is.na(res))] <- sample(res[!(is.na(res))], replace = TRUE)
     resEch[n:1,][lower.tri(resEch[n:1,], diag = TRUE)][is.na(resEch[n:1,][lower.tri(resEch[n:1,], diag = TRUE)])] <- 0
-    triangleBoot <- Cumulate(resEch * sqrt(phi) * sqrt(decTriangleRecalc) + decTriangleRecalc)
+    triangleBoot <- Cumulate(resEch * sqrt(phi) * sqrt(abs(decTriangleRecalc)) + decTriangleRecalc)
     diag(triangleBoot[n:1,])[is.na(diag(triangleBoot[n:1,]))] <- diag(triangle[n:1,])[is.na(diag(triangleBoot[n:1,]))]
     return(triangleBoot)
   }
