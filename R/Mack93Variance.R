@@ -32,7 +32,11 @@ Mack93Variance <- function(triangle){
   for(i in 1:(n-2)){
     coeffVar[i] <- 1 / (n - i - 1) * sum( triangle[, i] * (triangle[,i+1]/triangle[,i] - outputCL$lambdas[i])^2, na.rm = TRUE)
   }
-  coeffVar[n-1] <- min(coeffVar[n-2]^2/coeffVar[n-3], min(coeffVar[n-2], coeffVar[n-3]))
+  if(coeffVar[n-3] != 0){
+    coeffVar[n-1] <- min(coeffVar[n-2]^2/coeffVar[n-3], min(coeffVar[n-2], coeffVar[n-3]))
+  } else{
+    coeffVar[n-1] <- min(coeffVar[n-2], coeffVar[n-3])
+  }
 
   # Quadratic error on IBNR
   ibnrVar <- coeffVar
