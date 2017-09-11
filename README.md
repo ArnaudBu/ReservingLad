@@ -84,6 +84,14 @@ Test the independance of the residuals
 MackSecondHyp(triangleExampleEngland)
 ```
 
+### Chain Ladder hypothesis
+
+Test the independance of residuals regarding the calendar year.
+
+```r
+ChainLadderHyp(triangleExampleEngland)
+```
+
 ## Chain Ladder
 
 ```r
