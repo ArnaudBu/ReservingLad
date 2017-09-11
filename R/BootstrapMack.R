@@ -60,7 +60,7 @@ BootstrapMack <- function(triangle, nBoot = 1000){
       meanNorm <- diag(triangleBoot[n:i,i:n])[1:(n-i)] * lambdaBoot[i:(n-1)]
       sigmaNorm <- sigmaBoot[i:(n-1)] * sqrt(diag(triangleBoot[n:i,i:n])[1:(n-i)])
       sigmaNorm[sigmaNorm < 0] <- 0
-      diag(triangleBoot[n:(i+1),(i+1):n]) <- sapply(1:(n-i), function(j) rnorm(1, meanNorm[j], sigmaNorm[j]))
+      diag(triangleBoot[n:(i+1),(i+1):n]) <- sapply(1:(n-i), function(j) max(0.1, rnorm(1, meanNorm[j], sigmaNorm[j])))
     }
     triangleBoot[n,n] <-  rnorm(1, triangleBoot[n,n-1] * lambdaBoot[n-1], sigmaBoot[n-1] * sqrt(triangleBoot[n,n-1]))
     return(triangleBoot)
