@@ -36,7 +36,8 @@ MackSecondHyp <- function(triangle){
   n <- ncol(triangle)
   dataPlot <- data.frame()
   for(i in 2:(n-1)){
-    temp <- data.frame(x = triangle[, i-1], y = (triangle[,i] - triangle[,i-1] * outputCL$lambda[i-1]) / sqrt(triangle[,i]), devYear = colnames(triangle)[i], label = rownames(triangle))
+    res <- (triangle[,i] - triangle[,i-1] * outputCL$lambda[i-1]) / sqrt(triangle[,i])
+    temp <- data.frame(x = triangle[, i-1], y =  res / sqrt(mean(res^2, na.rm = TRUE)), devYear = colnames(triangle)[i], label = rownames(triangle))
     dataPlot <- rbind(dataPlot, temp)
   }
   dataPlot <- dataPlot[!is.na(dataPlot$y),]
