@@ -19,6 +19,16 @@ MackSecondHyp <- function(triangle){
   n <- nrow(triangle)
   if(!all(!is.na(diag(triangle[n:1,])))){stop("Diagonal contains NA values.")}
 
+  # Naming the columns
+  if(is.null(rownames(triangle))){
+    rownames(triangle) <- 1:nrow(triangle)
+  }
+  
+  if(is.null(colnames(triangle))){
+    colnames(triangle) <- 1:ncol(triangle)
+  }
+  
+  
   # Application of Chain Ladder
   outputCL <- ChainLadder(triangle)
 
