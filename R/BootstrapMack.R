@@ -38,24 +38,30 @@ BootstrapMack <- function(triangle, nBoot = 1000){
   coeffPassages[,] <- NA
   coeffPassages[-n, -n] <- triangle[-n,-1]/triangle[-n, -n]
   lambdas <- t(matrix(rep(c(lambda, NA), n), nrow = n))
+  #sigmas <- sqrt(t(matrix(rep(1/((n-1):0)*colSums(triangle *(coeffPassages - lambdas)^2, na.rm = TRUE),n), nrow = n)))
   sigmas <- sqrt(t(matrix(rep(c(varMack93$coeffVar, NA), n), nrow = n)))
   sigmas[sigmas == 0] <- 0.001
 
   res <- sqrt(triangle) * (coeffPassages - lambdas) / sigmas #* sqrt(n0/(n0-p))
-  #res <- res - mean(res, na.rm = TRUE)
+  #res[1, n-1] <- 0
+  meanRes <- t(matrix(rep(colMeans(res, na.rm = TRUE), n), nrow = n))
+  #sigRes <- t(matrix(rep(apply(res, 2, function(x) sd(x, na.rm = TRUE)), n), nrow = n))
+  res <- (res - meanRes) 
 
   # Bootstrap function
   functionBoostrap <- function(res){
     resEch <- res
     resEch[!(is.na(res) | res == 0)] <- sample(res[!(is.na(res) | res == 0)], replace = TRUE)
-    coeffs <- resEch * sigmas / sqrt(triangle) + lambdas
+    coeffs <- (resEch) * sigmas / sqrt(triangle) + lambdas
     coeffs[coeffs < 0.1] <- 0.1
     triangleBoot <- triangle
     for(i in (n-1):1){
-      triangleBoot[1:(n-i),i] <- triangleBoot[1:(n-i),i+1] / coeffs[1:(n-i),i]
+      triangleBoot[1:(n-i),i] <- triangle[1:(n-i),i+1] / coeffs[1:(n-i),i]
     }
-    lambdaBoot <- ChainLadder(triangleBoot)$lambdas
-    sigmaBoot <- sqrt(Mack93Variance(triangleBoot)$coeffVar)
+    lambdaBoot <- colSums(triangle * coeffs, na.rm = TRUE) / colSums(triangle * !is.na(coeffs), na.rm = TRUE)
+    # lambdaBoot <- ChainLadder(triangleBoot)$lambdas
+    # sigmaBoot <- sqrt(Mack93Variance(triangleBoot)$coeffVar)
+    sigmaBoot <- sigmas[1, -n]
     for(i in 1:(n-2)){
       meanNorm <- diag(triangleBoot[n:i,i:n])[1:(n-i)] * lambdaBoot[i:(n-1)]
       sigmaNorm <- sigmaBoot[i:(n-1)] * sqrt(diag(triangleBoot[n:i,i:n])[1:(n-i)])
