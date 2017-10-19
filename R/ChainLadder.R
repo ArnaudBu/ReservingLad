@@ -24,7 +24,7 @@ ChainLadder <- function(triangle, weight = NA){
   if(nrow(triangle) != ncol(triangle)){stop("Number of rows different of number of columns in the triangle.")}
   n <- nrow(triangle)
   if(!all(!is.na(diag(triangle[n:1,])))){stop("Diagonal contains NA values.")}
-  if(is.na(weight)){weight <- !is.na(triangle[-n, -1])}
+  if(is.na(weight[1])){weight = !is.na(triangle[-n, -1])}
   if(!(nrow(weight) == nrow(triangle) - 1 & ncol(weight) == ncol(triangle) -1)){stop("Invalid weight dimension")}
   if(!(sum((weight == 0) + (weight == 1), na.rm = TRUE) == sum(!is.na(weight)))){stop("Invalid values in weights")}
 
