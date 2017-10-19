@@ -3,6 +3,7 @@
 #' \code{MackSecondHyp} verifies second Mack hypothesis about the independance of residuals.
 #'
 #' @param triangle Undevelopped triangle as a matrix
+#' @param weight Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no
 #' @return a plot to confirm the hypothesis
 #'
 #' @import ggplot2
@@ -11,7 +12,7 @@
 #' @examples MackFirstHyp(triangleExampleEngland)
 #'
 #' @export
-MackSecondHyp <- function(triangle){
+MackSecondHyp <- function(triangle, weight = NA){
 
   # Validity checks for the triangle
   if(!(is.matrix(triangle) & is.numeric(triangle))){stop("The triangle is not a numeric matrix.")}
@@ -23,14 +24,14 @@ MackSecondHyp <- function(triangle){
   if(is.null(rownames(triangle))){
     rownames(triangle) <- 1:nrow(triangle)
   }
-  
+
   if(is.null(colnames(triangle))){
     colnames(triangle) <- 1:ncol(triangle)
   }
-  
-  
+
+
   # Application of Chain Ladder
-  outputCL <- ChainLadder(triangle)
+  outputCL <- ChainLadder(triangle, weight)
 
   # Construction of the table
   n <- ncol(triangle)

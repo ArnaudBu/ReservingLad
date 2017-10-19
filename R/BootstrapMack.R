@@ -4,6 +4,7 @@
 #'
 #' @param triangle Undevelopped triangle as a matrix
 #' @param nBoot Number of samples. Default value to 1000
+#' @param weight Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no
 #' @return A list containing the following objects:
 #' \itemize{
 #'   \item{triangleList: the list of bootsraped triangles }
@@ -16,7 +17,7 @@
 #' @import data.table
 #'
 #' @export
-BootstrapMack <- function(triangle, nBoot = 1000){
+BootstrapMack <- function(triangle, nBoot = 1000, weight = NA){
 
   # Validity checks for the triangle
   if(!(is.matrix(triangle) & is.numeric(triangle))){stop("The triangle is not a numeric matrix.")}
@@ -29,7 +30,7 @@ BootstrapMack <- function(triangle, nBoot = 1000){
   p <- 2*n -1
 
   # Lambda calculation
-  outputCL <- ChainLadder(triangle)
+  outputCL <- ChainLadder(triangle, weight)
   lambda <- outputCL$lambdas
 
   # Residuals computation
@@ -46,7 +47,7 @@ BootstrapMack <- function(triangle, nBoot = 1000){
   #res[1, n-1] <- 0
   meanRes <- t(matrix(rep(colMeans(res, na.rm = TRUE), n), nrow = n))
   #sigRes <- t(matrix(rep(apply(res, 2, function(x) sd(x, na.rm = TRUE)), n), nrow = n))
-  res <- (res - meanRes) 
+  res <- (res - meanRes)
 
   # Bootstrap function
   functionBoostrap <- function(res){

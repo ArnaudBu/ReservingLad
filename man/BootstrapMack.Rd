@@ -4,12 +4,14 @@
 \alias{BootstrapMack}
 \title{Bootstrap Mack}
 \usage{
-BootstrapMack(triangle, nBoot = 1000)
+BootstrapMack(triangle, nBoot = 1000, weight = NA)
 }
 \arguments{
 \item{triangle}{Undevelopped triangle as a matrix}
 
 \item{nBoot}{Number of samples. Default value to 1000}
+
+\item{weight}{Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no}
 }
 \value{
 A list containing the following objects:

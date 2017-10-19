@@ -3,6 +3,7 @@
 #' \code{BootstrapChainLadder} computes the bootstraped distribution for IBNR with an ODP mehtod.
 #'
 #' @param triangle Undevelopped triangle as a matrix.
+#' @param weight Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no
 #' @param nBoot Number of samples. Default value equals to 1000.
 #' @return A list containing the following objects:
 #' \itemize{
@@ -16,7 +17,7 @@
 #' @import data.table
 #'
 #' @export
-BootstrapChainLadder <- function(triangle, nBoot = 1000){
+BootstrapChainLadder <- function(triangle, nBoot = 1000, weight = NA){
 
   # Validity checks for the triangle
   if(!(is.matrix(triangle) & is.numeric(triangle))){stop("The triangle is not a numeric matrix.")}
@@ -29,7 +30,7 @@ BootstrapChainLadder <- function(triangle, nBoot = 1000){
   p <- 2*n -1
 
   # Lambda calculation
-  outputCL <- ChainLadder(triangle)
+  outputCL <- ChainLadder(triangle, weight)
   lambda <- outputCL$lambdas
 
   # Recalculated triangle

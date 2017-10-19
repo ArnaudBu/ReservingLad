@@ -3,6 +3,7 @@
 #' \code{ChainLadderHype} verifies that there is no inflation by ploting the residuals by calendar year.
 #'
 #' @param triangle Undevelopped triangle as a matrix
+#' @param weight Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no
 #' @return a plot to confirm the hypothesis
 #'
 #' @import ggplot2
@@ -11,7 +12,7 @@
 #' @examples ChainLadderHyp(triangleExampleEngland)
 #'
 #' @export
-ChainLadderHyp <- function(triangle){
+ChainLadderHyp <- function(triangle, weight = NA){
 
   # Validity checks for the triangle
   if(!(is.matrix(triangle) & is.numeric(triangle))){stop("The triangle is not a numeric matrix.")}
@@ -23,14 +24,14 @@ ChainLadderHyp <- function(triangle){
   if(is.null(rownames(triangle))){
     rownames(triangle) <- 1:nrow(triangle)
   }
-  
+
   if(is.null(colnames(triangle))){
     colnames(triangle) <- 1:ncol(triangle)
   }
-  
-  
+
+
   # Application of Chain Ladder
-  outputCL <- ChainLadder(triangle)
+  outputCL <- ChainLadder(triangle, weight = NA)
 
   # Construction of the table
   n <- ncol(triangle)
@@ -40,7 +41,7 @@ ChainLadderHyp <- function(triangle){
     temp <- data.frame(x = 1:n -1 + i, y = res / sqrt(mean(res^2, na.rm = TRUE)) , devYear = colnames(triangle)[i], label = rownames(triangle))
     dataPlot <- rbind(dataPlot, temp)
   }
-  
+
   dataPlot <- dataPlot[!is.na(dataPlot$y),]
 
   # Plot of the table

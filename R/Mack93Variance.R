@@ -3,6 +3,7 @@
 #' \code{Mack93Variance} computes the variances coefficients for each devellopment year
 #'
 #' @param triangle Undevelopped triangle as a matrix
+#' @param weight Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no
 #' @return A list containing the following objects:
 #' \itemize{
 #'   \item{coeffVar: variances on coefficients }
@@ -14,7 +15,7 @@
 #' @examples error <- Mack93Variance(triangleExampleEngland)
 #'
 #' @export
-Mack93Variance <- function(triangle){
+Mack93Variance <- function(triangle, weight = NA){
 
   # Validity checks for the triangle
   if(!(is.matrix(triangle) & is.numeric(triangle))){stop("The triangle is not a numeric matrix.")}
@@ -24,7 +25,7 @@ Mack93Variance <- function(triangle){
 
 
   # Application of ChainLadder
-  outputCL <- ChainLadder(triangle)
+  outputCL <- ChainLadder(triangle, weight)
 
   # Construction of lambda estimators variance
   n <- ncol(triangle)

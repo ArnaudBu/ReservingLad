@@ -4,10 +4,12 @@
 \alias{MackSecondHyp}
 \title{Verify second Mack hypothesis}
 \usage{
-MackSecondHyp(triangle)
+MackSecondHyp(triangle, weight = NA)
 }
 \arguments{
 \item{triangle}{Undevelopped triangle as a matrix}
+
+\item{weight}{Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no}
 }
 \value{
 a plot to confirm the hypothesis
