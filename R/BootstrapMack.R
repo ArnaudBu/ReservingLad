@@ -34,7 +34,7 @@ BootstrapMack <- function(triangle, nBoot = 1000, weight = NA){
   lambda <- outputCL$lambdas
 
   # Residuals computation
-  varMack93 <- Mack93Variance(triangle)
+  varMack93 <- Mack93Variance(triangle, weight)
   coeffPassages <- triangle
   coeffPassages[,] <- NA
   coeffPassages[-n, -n] <- triangle[-n,-1]/triangle[-n, -n]
@@ -74,7 +74,7 @@ BootstrapMack <- function(triangle, nBoot = 1000, weight = NA){
   }
 
   triangleList <- lapply(1:nBoot, function(x) {functionBoostrap(res)})
-  psapByAccidentYear <- lapply(triangleList, function(x) data.frame(matrix(ChainLadder(x)$ibnrByAccidentYear, nrow = 1)))
+  psapByAccidentYear <- lapply(triangleList, function(x) data.frame(matrix(x[, n] - rev(diag(x[n:1,])), nrow = 1)))
   psapByAccidentYear <- rbindlist(psapByAccidentYear)
   colnames(psapByAccidentYear) <- rownames(triangle)[-1]
   psap <- rowSums(psapByAccidentYear)
