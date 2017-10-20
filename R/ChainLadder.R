@@ -28,6 +28,13 @@ ChainLadder <- function(triangle, weight = NA){
   if(!(nrow(weight) == nrow(triangle) - 1 & ncol(weight) == ncol(triangle) -1)){stop("Invalid weight dimension")}
   if(!(sum((weight == 0) + (weight == 1), na.rm = TRUE) == sum(!is.na(weight)))){stop("Invalid values in weights")}
 
+  # Handle the case when weight is 0 on the first row last column
+  
+  if(weight[1, n-1] == 0){
+    triangle[1, n] <- triangle[1, n-1]
+    weight[1, n-1] <- 1
+  }
+  
   # Compute the passing coefficients
   lambda <- sapply(1:(n-1),
                    function(i){
