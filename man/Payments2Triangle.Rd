@@ -23,7 +23,7 @@ Payments2Triangle(accidentDate, transactionDate, cashFlows, years = NA,
 \item{year: aggregation on yearly step from evalDate for both accident and development period}
 \item{yearRef: aggregation on fiscal years for accident periods and a first development period corresponding to the timelapse between beginning of the year and evalDate}}}
 
-\item{evalDate}{String. date of evaluation, with format "%m-%d" (ex: "12-23"). All data after this date for the maximal year will not be considered.}
+\item{evalDate}{String. date of evaluation, with format "m-d" (ex: "12-23"). All data after this date for the maximal year will not be considered.}
 }
 \value{
 the triangle as a matrix
