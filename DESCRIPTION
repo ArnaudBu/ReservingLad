@@ -4,11 +4,10 @@ Title: Reserving for Non Life Insurance
 Version: 0.1.0
 Author: Arnaud Buzzi <arnaud.buzzi@sia-partners.com>
 Maintainer: Arnaud Buzzi <arnaud.buzzi@sia-partners.com>
-Description: Implementation of several reserving technique for non life insurance
-License: None
+Description: Implementation of several reserving technique for non life insurance.
+License: GPL (>= 2)
 Depends:
-    R (>= 2.2)
-Imports:
+    R (>= 2.2),
     viridis,
     ggplot2,
     data.table,

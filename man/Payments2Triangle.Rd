@@ -31,7 +31,3 @@ the triangle as a matrix
 \description{
 \code{Payments2Triangle} converts a list of cash flows to a triangle.
 }
-\examples{
-Payments2Triangle(accidentDate, transactionDate, cashFlows, 2008:2017, "yearRef", "10-01")
-
-}

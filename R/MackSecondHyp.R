@@ -13,7 +13,7 @@
 #'
 #' @export
 MackSecondHyp <- function(triangle, weight = NA){
-
+  x <- y <- label <- devYear <- NULL
   # Validity checks for the triangle
   if(!(is.matrix(triangle) & is.numeric(triangle))){stop("The triangle is not a numeric matrix.")}
   if(nrow(triangle) != ncol(triangle)){stop("Number of rows different of number of columns in the triangle.")}

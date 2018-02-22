@@ -16,15 +16,11 @@
 #'
 #' @return the triangle as a matrix
 #'
-#' @import data.table
-#' @import lubridate
-#' @import dplyr
-#'
-#' @examples Payments2Triangle(accidentDate, transactionDate, cashFlows, 2008:2017, "yearRef", "10-01")
+#' @import lubridate data.table dplyr
 #'
 #' @export
 Payments2Triangle <- function(accidentDate, transactionDate, cashFlows, years = NA, mode = "year", evalDate = "01-01"){
-
+  accident <- transaction <- developmentYear <- accidentYear <- cashflows <- NULL
   # Check the validity of the vector parameters
   if(!is.Date(accidentDate)){stop("Invalid format for accidentDate")}
   if(!is.Date(transactionDate)){stop("Invalid format for transactionDate")}

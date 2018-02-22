@@ -10,8 +10,10 @@ You can install the package by using the `r install_github` function from the **
 
 ```r
 library(devtools)
-install_github("arnaudbu/ReservingLad")
+devtools::install_github("arnaudbu/ReservingLad", dependencies = TRUE)
 ```
+
+The warnings are normal. They just come from some conflicts between the libraries.
 
 ## Type of data
 
@@ -36,6 +38,10 @@ triangleExampleEngland
 10 344014      NA      NA      NA      NA      NA      NA      NA      NA      NA
 ```
 ## Triangle Manipulation
+
+### Create Triangle
+
+The function `Payments2Triangle` can convert a list of payment to a cumulated triangle for reserving purpose. Check the help for more information.
 
 ### Cumulate
 

@@ -13,6 +13,7 @@
 #'
 #' @export
 ChainLadderHyp <- function(triangle, weight = NA){
+  x <- y <- label <- devYear <- NULL
 
   # Validity checks for the triangle
   if(!(is.matrix(triangle) & is.numeric(triangle))){stop("The triangle is not a numeric matrix.")}
