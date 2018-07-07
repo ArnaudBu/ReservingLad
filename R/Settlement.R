@@ -13,6 +13,10 @@
 #' @export
 Settlement <- function(triangle){
 
+  # Checks
+  if(!(is.matrix(triangle) & is.numeric(triangle))){stop("The triangle is not a numeric matrix.")}
+  if(nrow(triangle) != ncol(triangle)){stop("Number of rows different of number of columns in the triangle.")}
+
   # Preparing the data
   triangleComp <- ChainLadder(triangle, weight)$developedTriangle
   triangleComp <- triangleComp / matrix(rep(triangleComp[,ncol(triangleComp)], ncol(triangleComp)), ncol = ncol(triangleComp))
