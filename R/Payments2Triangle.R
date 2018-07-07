@@ -30,6 +30,9 @@ Payments2Triangle <- function(accidentDate, transactionDate, cashFlows, years = 
   l = length(cashFlows)
   if(m != n | m != l | n != l){stop("Invalid vectors length")}
 
+  # Check that no accident date is posterior to a transaction date
+  if(!all(accidentDate <= transactionDate)){stop("Some accident date are posterior to the associated transaction date.")}
+
   # Check the validity of the years vector
   if(is.na(years[1])){years <- min(year(accidentDate)):max(year(transactionDate))}
   years <- sort(years)

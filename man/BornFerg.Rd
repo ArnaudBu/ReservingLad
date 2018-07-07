@@ -4,12 +4,19 @@
 \alias{BornFerg}
 \title{Bornhuetter Fergusson}
 \usage{
-BornFerg(triangle, ultimateClaims)
+BornFerg(triangle, ultimateClaims, coeffs = "CL", weight = NA)
 }
 \arguments{
 \item{triangle}{Undevelopped triangle as a matrix.}
 
 \item{ultimateClaims}{Ultimate claims by accident year.}
+
+\item{coeffs}{Character. Method for computing the coefficients:
+\itemize{
+  \item{CL: Same coefficient as Chain Ladder}
+  \item{full: Take the coefficient computed from full lines}}}
+
+\item{weight}{Used only if coeff = "CL". Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no.}
 }
 \value{
 A list containing the following objects:

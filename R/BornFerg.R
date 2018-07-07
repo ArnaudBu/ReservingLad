@@ -4,6 +4,12 @@
 #'
 #' @param triangle Undevelopped triangle as a matrix.
 #' @param ultimateClaims Ultimate claims by accident year.
+#' @param coeffs Character. Method for computing the coefficients:
+#' \itemize{
+#'   \item{CL: Same coefficient as Chain Ladder}
+#'   \item{full: Take the coefficient computed from full lines}}
+#' @param weight Used only if coeff = "CL". Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no.
+#'
 #' @return A list containing the following objects:
 #' \itemize{
 #'   \item{triangle: the input triangle }
@@ -11,7 +17,6 @@
 #'   \item{gammas: the Bornhuetter Fergusson coefficients}
 #'   \item{ibnrByAccidentYear: ibnr reserve by accident year}
 #'   \item{ibnr: total ibnr reserve}}
-#'
 #' @details Missing values are handled. There just need to be replaced by a NA.
 #' @details It is possible to have more than one complete line.
 #'
@@ -19,7 +24,7 @@
 #' @examples outputBF <- BornFerg(triangleExampleEngland, ultimateClaims)
 #'
 #' @export
-BornFerg <- function(triangle, ultimateClaims){
+BornFerg <- function(triangle, ultimateClaims, coeffs = "CL", weight = NA){
 
   # Validity checks for the triangle
   if(!(is.matrix(triangle) & is.numeric(triangle))){stop("The triangle is not a numeric matrix.")}
@@ -31,10 +36,15 @@ BornFerg <- function(triangle, ultimateClaims){
 
   # Compute the  coefficients
   rows <- which(!is.na(rowSums(triangle)))
-  if(length(rows) > 1){
-    gamma <- colSums(triangle[rows,]) / sum(triangle[rows, p])
+  if(coeffs == "CL"){
+    outputCL <- ChainLadder(triangle, weight)
+    gamma <- c(1, cumprod(outputCL$lambdas))/prod(outputCL$lambdas)
   } else{
-    gamma <- triangle[rows,] / triangle[rows, ncol(triangle)]
+    if(length(rows) > 1){
+      gamma <- colSums(triangle[rows,]) / sum(triangle[rows, p])
+    } else{
+      gamma <- triangle[rows,] / triangle[rows, ncol(triangle)]
+    }
   }
   names(gamma) <- colnames(triangle)
 
@@ -55,6 +65,7 @@ BornFerg <- function(triangle, ultimateClaims){
               developedTriangle = developedTriangle,
               gammas = gamma,
               ibnrByAccidentYear = ibnr,
-              ibnr = sum(ibnr)
+              ibnr = sum(ibnr),
+              input_ultimate = ultimateClaims
   ))
 }

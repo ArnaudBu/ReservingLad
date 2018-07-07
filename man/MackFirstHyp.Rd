@@ -4,10 +4,15 @@
 \alias{MackFirstHyp}
 \title{Verify first Mack hypothesis}
 \usage{
-MackFirstHyp(triangle)
+MackFirstHyp(triangle, mode = "separate")
 }
 \arguments{
 \item{triangle}{Undevelopped triangle as a matrix}
+
+\item{mode}{Character. Plotting mode:
+\itemize{
+  \item{separate: Separate the plots by development period}
+  \item{allinone: Keep all lines in one graph}}}
 }
 \value{
 a plot to confirm the hypothesis
