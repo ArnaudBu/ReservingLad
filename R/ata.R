@@ -14,7 +14,7 @@ ata <- function(triangle){
   if(!(is.matrix(triangle) & is.numeric(triangle))){stop("triangle is not a numeric matrix")}
 
   # Compute the factors
-  a <- triangle[, -1] / triangle[, -ncol(triangle)]
+  a <- triangle[-nrow(triangle), -1] / triangle[-nrow(triangle), -ncol(triangle)]
   colnames(a) <- paste(1:(ncol(triangle)-1), 2:ncol(triangle), sep = "->")
 
   # Return the factors
