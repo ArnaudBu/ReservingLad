@@ -22,14 +22,14 @@ Cook <- function(triangle){
   n <- ncol(triangle)
   dataA <- data.frame()
   for(i in 2:(n-1)){
-    temp <- data.frame(x = triangle[, i-1], y = triangle[,i], devYear = colnames(triangle)[i], accidentYear = as.numeric(rownames(triangle)))
+    temp <- data.frame(x = triangle[, i-1], y = triangle[,i], devYear = colnames(triangle)[i], accidentYear = 1:nrow(triangle))
     temp <- temp[!(is.na(temp$y) | is.na(temp$x)),]
     fit <- lm(y~x+0, data=temp, weights = 1/temp$x)
     temp$cutoff <- 4/nrow(temp)
     temp$cookDistance = cooks.distance(fit)
     dataA <- rbind(dataA, temp)
   }
-  dataA$devYearS <- factor(dataA$devYear, labels = paste0("dev year ", as.numeric(as.character(unique(dataA$devYear))) -1 , " to ", unique(dataA$devYear) ))
+  dataA$devYearS <- factor(dataA$devYear, labels = paste0("dev period ", as.numeric(as.character(unique(dataA$devYear))) -1 , " to ", unique(dataA$devYear) ))
 
   # Plot
   ggplot(data = dataA, aes(x = accidentYear, y = cookDistance)) +
