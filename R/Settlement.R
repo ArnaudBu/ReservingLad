@@ -18,7 +18,7 @@ Settlement <- function(triangle){
   if(nrow(triangle) != ncol(triangle)){stop("Number of rows different of number of columns in the triangle.")}
 
   # Preparing the data
-  triangleComp <- ChainLadder(triangle, weight)$developedTriangle
+  triangleComp <- ChainLadder(triangle)$developedTriangle
   triangleComp <- triangleComp / matrix(rep(triangleComp[,ncol(triangleComp)], ncol(triangleComp)), ncol = ncol(triangleComp))
   triangleComp[is.na(triangle)] <- NA
   tcDat <- data.table(melt(triangleComp))

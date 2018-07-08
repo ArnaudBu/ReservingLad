@@ -35,7 +35,7 @@ MackFirstHyp <- function(triangle, mode = "separate"){
       dataPlot <- rbind(dataPlot, temp)
     }
     dataPlot <- dataPlot[!is.na(dataPlot$y),]
-    dataPlot$devYear <- factor(dataPlot$devYear, labels = paste0("dev year ", as.numeric(as.character(unique(dataPlot$devYear))) -1 , " to ", unique(dataPlot$devYear) ))
+    dataPlot$devYear <- factor(dataPlot$devYear, labels = paste0("dev period ", as.numeric(as.character(unique(dataPlot$devYear))) -1 , " to ", unique(dataPlot$devYear) ))
     #dataPlot <- rbind(dataPlot, data.frame(devYear = unique(dataPlot$devYear), x = 0, yfit = 0, label = NA, y = NA))
 
     # Plot of the table
