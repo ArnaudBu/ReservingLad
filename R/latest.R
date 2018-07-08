@@ -15,7 +15,7 @@ latest <- function(triangle){
 
   # Extract the latest payments
   l <- rev(diag(triangle[nrow(triangle):1,]))
-  names(l) <- rownames(a)
+  names(l) <- rownames(triangle)
 
   # Return the payments
   return(l)
