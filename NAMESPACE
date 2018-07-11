@@ -2,6 +2,8 @@
 
 export(AtaImpact)
 export(Benktander)
+export(BootstrapBenktander)
+export(BootstrapBornFerg)
 export(BootstrapChainLadder)
 export(BootstrapMack)
 export(BornFerg)
