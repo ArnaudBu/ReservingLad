@@ -7,12 +7,12 @@ Maintainer: Arnaud Buzzi <arnaud.buzzi@sia-partners.com>
 Description: Implementation of several reserving technique for non life insurance.
 License: GPL (>= 2)
 Depends:
-    R (>= 2.2),
-    viridis,
-    ggplot2,
-    data.table,
-    dplyr,
-    lubridate
+    R (>= 3.2)
+Imports:
+    viridis (>= 0.6.1),
+    ggplot2 (>= 3.3.5),
+    data.table (>= 1.14.0),
+    lubridate (>= 1.7.10)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.2
