@@ -2,9 +2,9 @@
 #'
 #' \code{BootstrapBornFerg} computes the bootstraped distribution for IBNR on a Bornhuetter Fergusson method.
 #'
-#' @param triangle Undevelopped triangle as a matrix.
+#' @param triangle Cumulated triangle as a matrix. The matrix should be square
 #' @param ultimateClaims Ultimate claims by accident year.
-#' @param weight Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no
+#' @param weight Boolean matrix the same size of the triangle to tell if the value is to be considered: 1 for yes, 0 for no. First column is not considered
 #' @param nBoot Number of samples. Default value equals to 1000.
 #' @return A list containing the following objects:
 #' \itemize{
@@ -15,8 +15,6 @@
 #'
 #' @examples ultimateClaims <- c(3901463,5433719,5378826,5297906,4858200,5111171,5660771,6784799,5642266,4969825)
 #' @examples bbf <- BootstrapBornFerg(triangleExampleEngland, ultimateClaims, 1000)
-#'
-#' @import data.table
 #'
 #' @export
 BootstrapBornFerg <- function(triangle,  ultimateClaims, nBoot = 1000, weight = NA){

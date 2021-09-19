@@ -2,8 +2,8 @@
 #'
 #' \code{BootstrapChainLadder} computes the bootstraped distribution for IBNR with an ODP mehtod.
 #'
-#' @param triangle Undevelopped triangle as a matrix.
-#' @param weight Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no
+#' @param triangle Cumulated triangle as a matrix. The matrix should be square
+#' @param weight Boolean matrix the same size of the triangle to tell if the value is to be considered: 1 for yes, 0 for no. First column is not considered
 #' @param nBoot Number of samples. Default value equals to 1000.
 #' @return A list containing the following objects:
 #' \itemize{
@@ -13,8 +13,6 @@
 #'   \item{predictionError: estimation of the prediction error on IBNR}}
 #'
 #' @examples bcl <- BootstrapChainLadder(triangleExampleEngland, 1000)
-#'
-#' @import data.table
 #'
 #' @export
 BootstrapChainLadder <- function(triangle, nBoot = 1000, weight = NA){
@@ -50,7 +48,7 @@ BootstrapChainLadder <- function(triangle, nBoot = 1000, weight = NA){
   phiprime <- sum(res^2, na.rm = TRUE) / (n0-p)
   phi[phi==0] <- 0.000001
   phi <- t(matrix(rep(phi, n), nrow = n))
-  res <- res / sqrt(phi)  #*sqrt(n0/(n0-p))
+  res <- res / sqrt(phi)
 
   # Bootstrap function
   functionBoostrap <- function(res, decTriangleRecalc){
@@ -70,7 +68,7 @@ BootstrapChainLadder <- function(triangle, nBoot = 1000, weight = NA){
   triangleList <- lapply(1:nBoot, function(x) {functionBoostrap(res, decTriangleRecalc)})
   triangleDecList <- lapply(triangleList, function(x) functionSimulate(Decumulate(ChainLadder(x)$developedTriangle)))
   psapByAccidentYear <- lapply(triangleDecList, function(x) data.frame(matrix(rowSums(is.na(triangle) * x), nrow = 1)))
-  psapByAccidentYear <- rbindlist(psapByAccidentYear)
+  psapByAccidentYear <- data.table::rbindlist(psapByAccidentYear)
   colnames(psapByAccidentYear) <- rownames(triangle)
   psap <- rowSums(psapByAccidentYear)
   predictionError <- sqrt(phiprime*mean(psap) + n0/(n0-p) * sd(psap)^2)

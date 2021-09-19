@@ -2,9 +2,9 @@
 #'
 #' \code{BootstrapMack} computes the bootstraped distribution for IBNR with a Mack Model
 #'
-#' @param triangle Undevelopped triangle as a matrix
+#' @param triangle Cumulated triangle as a matrix.  The matrix should be square
 #' @param nBoot Number of samples. Default value to 1000
-#' @param weight Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no
+#' @param weight Boolean matrix the same size of the triangle to tell if the value is to be considered: 1 for yes, 0 for no. First column is not considered
 #' @return A list containing the following objects:
 #' \itemize{
 #'   \item{triangleList: the list of bootsraped triangles }
@@ -13,8 +13,6 @@
 #'   \item{predictionError: estimation of the prediction error on IBNR}}
 #'
 #' @examples bm <- BootstrapMack(triangleExampleEngland, 1000)
-#'
-#' @import data.table
 #'
 #' @export
 BootstrapMack <- function(triangle, nBoot = 1000, weight = NA){
@@ -39,14 +37,11 @@ BootstrapMack <- function(triangle, nBoot = 1000, weight = NA){
   coeffPassages[,] <- NA
   coeffPassages[-n, -n] <- triangle[-n,-1]/triangle[-n, -n]
   lambdas <- t(matrix(rep(c(lambda, NA), n), nrow = n))
-  #sigmas <- sqrt(t(matrix(rep(1/((n-1):0)*colSums(triangle *(coeffPassages - lambdas)^2, na.rm = TRUE),n), nrow = n)))
   sigmas <- sqrt(t(matrix(rep(c(varMack93$coeffVar, NA), n), nrow = n)))
   sigmas[sigmas == 0] <- 0.001
 
-  res <- sqrt(triangle) * (coeffPassages - lambdas) / sigmas #* sqrt(n0/(n0-p))
-  #res[1, n-1] <- 0
+  res <- sqrt(triangle) * (coeffPassages - lambdas) / sigmas
   meanRes <- t(matrix(rep(colMeans(res, na.rm = TRUE), n), nrow = n))
-  #sigRes <- t(matrix(rep(apply(res, 2, function(x) sd(x, na.rm = TRUE)), n), nrow = n))
   res <- (res - meanRes)
 
   # Bootstrap function
@@ -60,8 +55,7 @@ BootstrapMack <- function(triangle, nBoot = 1000, weight = NA){
       triangleBoot[1:(n-i),i] <- triangle[1:(n-i),i+1] / coeffs[1:(n-i),i]
     }
     lambdaBoot <- colSums(triangle * coeffs, na.rm = TRUE) / colSums(triangle * !is.na(coeffs), na.rm = TRUE)
-    # lambdaBoot <- ChainLadder(triangleBoot)$lambdas
-    # sigmaBoot <- sqrt(Mack93Variance(triangleBoot)$coeffVar)
+
     sigmaBoot <- sigmas[1, -n]
     for(i in 1:(n-2)){
       meanNorm <- diag(triangleBoot[n:i,i:n])[1:(n-i)] * lambdaBoot[i:(n-1)]
@@ -75,10 +69,11 @@ BootstrapMack <- function(triangle, nBoot = 1000, weight = NA){
 
   triangleList <- lapply(1:nBoot, function(x) {functionBoostrap(res)})
   psapByAccidentYear <- lapply(triangleList, function(x) data.frame(matrix(x[-1, n] - rev(diag(x[n:2,])), nrow = 1)))
-  psapByAccidentYear <- rbindlist(psapByAccidentYear)
+  psapByAccidentYear <- data.table::rbindlist(psapByAccidentYear)
   colnames(psapByAccidentYear) <- rownames(triangle)[-1]
   psap <- rowSums(psapByAccidentYear)
   predictionError <- sd(psap)
+  
   return(list(triangleList = triangleList,
               ibnrByAccidentYear = psapByAccidentYear,
               ibnr = psap,
