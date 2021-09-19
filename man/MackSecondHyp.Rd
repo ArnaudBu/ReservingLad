@@ -18,6 +18,6 @@ a plot to confirm the hypothesis
 \code{MackSecondHyp} verifies second Mack hypothesis about the independance of residuals.
 }
 \examples{
-MackFirstHyp(triangleExampleEngland)
+MackSecondHyp(triangleExampleEngland)
 
 }
