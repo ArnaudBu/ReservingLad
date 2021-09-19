@@ -15,6 +15,27 @@
 #' @param evalDate String. Date of evaluation, with format "m-d" (ex: "12-23"). All data after this date for the maximal year will not be considered.
 #'
 #' @return Triangle as a matrix
+#' 
+#' @import data.table
+#'
+#' @examples library(lubridate)
+#' @examples library(data.table)
+#' @examples origin_claim <- as.Date("2010-01-03")
+#' @examples origin_transaction <- as.Date("2010-01-25")
+#' @examples dates_claim <- origin_claim %m+% months(0:59)
+#' @examples dates_transaction <- origin_transaction %m+% months(0:59)
+#' @examples d <- data.table(expand.grid(dates_claim, dates_transaction))
+#' @examples colnames(d) <- c("date_claim", "date_transaction")
+#' @examples d <- d[date_claim < date_transaction]
+#' @examples d$amount <- 1:1
+#' @examples Payments2Triangle(d$date_claim, d$date_transaction, d$amount, years = NA, mode = "yearRef", evalDate = "01-01")
+#' @examples Payments2Triangle(d$date_claim, d$date_transaction, d$amount, years = 2011:2014, mode = "yearRef", evalDate = "01-01")
+#' @examples Payments2Triangle(d$date_claim, d$date_transaction, d$amount, years = NA, mode = "yearRef", evalDate = "04-05")
+#' @examples Payments2Triangle(d$date_claim, d$date_transaction, d$amount, years = NA, mode = "year", evalDate = "01-01")
+#' @examples Payments2Triangle(d$date_claim, d$date_transaction, d$amount, years = NA, mode = "year", evalDate = "04-05")
+#' @examples Payments2Triangle(d$date_claim, d$date_transaction, d$amount, years = NA, mode = "semester", evalDate = "01-01")
+#' @examples Payments2Triangle(d$date_claim, d$date_transaction, d$amount, years = NA, mode = "quarter", evalDate = "01-01")
+
 #'
 #' @export
 Payments2Triangle <- function(accidentDate, transactionDate, cashFlows, years = NA, mode = "year", evalDate = "01-01"){
@@ -79,7 +100,7 @@ Payments2Triangle <- function(accidentDate, transactionDate, cashFlows, years = 
                  ]
   } else if(mode == "semester"){
     data[, c("accidentYear", "developmentYear") := list(paste(lubridate::year(accident), lubridate::semester(accident, with_year = FALSE), sep = "|"),
-                                                        (lubridate::year(transaction) - lubridate::year(accident)) * 4 + lubridate::semester(transaction, with_year = FALSE) - lubridate::semester(accident, with_year = FALSE)
+                                                        (lubridate::year(transaction) - lubridate::year(accident)) * 2 + lubridate::semester(transaction, with_year = FALSE) - lubridate::semester(accident, with_year = FALSE)
                                                         )
     ]
   } else if(mode == "yearRef"){
