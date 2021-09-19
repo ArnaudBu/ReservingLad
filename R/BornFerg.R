@@ -2,13 +2,13 @@
 #'
 #' \code{BornFerg} applies the Bornhuetter Fergusson method to a cumulated claim triangle.
 #'
-#' @param triangle Undevelopped triangle as a matrix.
+#' @param triangle Cumulated triangle as a matrix.
 #' @param ultimateClaims Ultimate claims by accident year.
 #' @param coeffs Character. Method for computing the coefficients:
 #' \itemize{
 #'   \item{CL: Same coefficient as Chain Ladder}
 #'   \item{full: Take the coefficient computed from full lines}}
-#' @param weight Used only if coeff = "CL". Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no.
+#' @param weight Used only if coeff = "CL". Boolean matrix the same size of the triangle to tell if the value is to be considered: 1 for yes, 0 for no. First column is not considered
 #'
 #' @return A list containing the following objects:
 #' \itemize{
@@ -58,7 +58,7 @@ BornFerg <- function(triangle, ultimateClaims, coeffs = "CL", weight = NA){
   }
 
   # Calculate IBNR by accident year
-  ibnr <- developedTriangle[(max(rows)+1):n,p] - diag(developedTriangle[(max(rows)):n,p:1])[-1]
+  ibnr <- developedTriangle[,p] - latest(triangle)
 
   # Return the values
   return(list(triangle = triangle,

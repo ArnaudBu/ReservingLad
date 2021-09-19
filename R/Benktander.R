@@ -2,9 +2,9 @@
 #'
 #' \code{Benktander} applies the Benktander method to a cumulated claim triangle, as described in this paper: https://www.casact.org/library/astin/vol30no2/333.pdf.
 #'
-#' @param triangle Undevelopped triangle as a matrix.
+#' @param triangle Cumulated triangle as a matrix.
 #' @param ultimateClaims Ultimate claims by accident year.
-#' @param weight  Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no.
+#' @param weight  Boolean matrix the same size of the triangle to tell if the value is to be considered: 1 for yes, 0 for no. First column is not considered
 #'
 #' @return A list containing the following objects:
 #' \itemize{
@@ -47,7 +47,7 @@ Benktander <- function(triangle, ultimateClaims, weight = NA){
   return(list(triangle = triangle,
               developedTriangle = developedTriangle,
               gammas = bf$gammas,
-              ibnrByAccidentYear = reserve[-1],
+              ibnrByAccidentYear = reserve,
               ibnr = sum(reserve),
               input_ultimate = ultimateClaims
   ))
