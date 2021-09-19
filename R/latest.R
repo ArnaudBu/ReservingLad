@@ -14,7 +14,7 @@ latest <- function(triangle){
   if(!(is.matrix(triangle) & is.numeric(triangle))){stop("triangle is not a numeric matrix")}
 
   # Extract the latest payments
-  l <- rev(diag(triangle[nrow(triangle):1,]))
+  l <- apply(triangle, 1, function(x) tail(x[!is.na(x)], 1))
   names(l) <- rownames(triangle)
 
   # Return the payments

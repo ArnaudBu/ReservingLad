@@ -3,7 +3,7 @@
 #' \code{IndepMack93} test the hypothesis of the independence of the development factors across
 #' calendar years.
 #'
-#' @param triangle Undevelopped triangle as a matrix
+#' @param triangle Cumulated triangle as a matrix
 #' @param range Range used for hypothesis testing.
 #' @return  A list containing the following objects:
 #' \itemize{
@@ -21,9 +21,6 @@ IndepMack93 <- function(triangle, range = 0.95){
 
   # Validity checks for the triangle
   if(!(is.matrix(triangle) & is.numeric(triangle))){stop("The triangle is not a numeric matrix.")}
-  if(nrow(triangle) != ncol(triangle)){stop("Number of rows different of number of columns in the triangle.")}
-  n <- nrow(triangle)
-  if(!all(!is.na(diag(triangle[n:1,])))){stop("Diagonal contains NA values.")}
   if(!(range <1 & range > 0)){stop("Invalid range.")}
 
   # Construction of the age to age coefficients

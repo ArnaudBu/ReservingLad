@@ -2,7 +2,7 @@
 #'
 #' \code{Cumulate} Cumulates a triangle
 #'
-#' @param triangle Undevelopped triangle as a matrix
+#' @param triangle Non cumulated triangle as a matrix
 #' @return The cumulated triangle as a matrix
 #'
 #' @examples  decTriangle <- Decumulate(triangleExampleEngland)

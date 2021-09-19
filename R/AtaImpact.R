@@ -17,8 +17,7 @@ AtaImpact <- function(triangle, mode = "value"){
   if(!(mode %in% c("value", "percent"))) stop("Invalid mode")
 
   # Compute weight matrix
-  weight <- triangle[-nrow(triangle), -1]
-  weight[!is.na(weight)] <- 1
+  weight <- !is.na(triangle)
 
   # Computation of each impact
   outputCLref <- ChainLadder(triangle)
@@ -37,6 +36,5 @@ AtaImpact <- function(triangle, mode = "value"){
   # Output
   output <- weight
   output[!is.na(output)] <- impacts
-  colnames(output) <- paste(1:(ncol(triangle)-1), 2:ncol(triangle), sep = "->")
   return(output)
 }

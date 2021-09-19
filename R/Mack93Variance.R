@@ -1,9 +1,9 @@
 #' Mack93 variances
 #'
-#' \code{Mack93Variance} computes the variances coefficients for each devellopment year
+#' \code{Mack93Variance} computes the variances coefficients for each development year
 #'
-#' @param triangle Undevelopped triangle as a matrix
-#' @param weight Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no
+#' @param triangle Cumulated triangle as a matrix. The matrix must have same dimension on row and columns
+#' @param weight Boolean matrix the same size of the triangle to tell if the value is to be considered: 1 for yes, 0 for no. First column is not considered
 #' @return A list containing the following objects:
 #' \itemize{
 #'   \item{coeffVar: variances on coefficients }
