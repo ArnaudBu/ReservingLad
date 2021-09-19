@@ -7,9 +7,9 @@
 ChainLadder(triangle, weight = NA)
 }
 \arguments{
-\item{triangle}{Undevelopped triangle as a matrix}
+\item{triangle}{Cumulated triangle as a matrix}
 
-\item{weight}{Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no}
+\item{weight}{Boolean matrix the same size of the triangle to tell if the value is to be considered: 1 for yes, 0 for no. First column is not considered}
 }
 \value{
 A list containing the following objects:
@@ -24,7 +24,7 @@ A list containing the following objects:
 \code{ChainLadder} applies the Chain Ladder method to a cumulated claim triangle.
 }
 \details{
-Missing values are handled. There just need to be replaced by a NA.
+Missing values are handled. They just need to be replaced by a NA.
 }
 \examples{
 outputCL <- ChainLadder(triangleExampleEngland)

@@ -7,7 +7,7 @@
 MackFirstHyp(triangle, mode = "separate")
 }
 \arguments{
-\item{triangle}{Undevelopped triangle as a matrix}
+\item{triangle}{Cumulated triangle as a matrix}
 
 \item{mode}{Character. Plotting mode:
 \itemize{
@@ -15,10 +15,10 @@ MackFirstHyp(triangle, mode = "separate")
   \item{allinone: Keep all lines in one graph}}}
 }
 \value{
-a plot to confirm the hypothesis
+a data.frame with the data, along with a plot to confirm the hypothesis
 }
 \description{
-\code{MackFirstHyp} verify first Mack hypothesis about the linearity of claims.
+\code{MackFirstHyp} verifies first Mack hypothesis about the linearity of claims.
 }
 \examples{
 MackFirstHyp(triangleExampleEngland)

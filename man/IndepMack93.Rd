@@ -7,7 +7,7 @@
 IndepMack93(triangle, range = 0.95)
 }
 \arguments{
-\item{triangle}{Undevelopped triangle as a matrix}
+\item{triangle}{Cumulated triangle as a matrix}
 
 \item{range}{Range used for hypothesis testing.}
 }

@@ -2,17 +2,17 @@
 % Please edit documentation in R/ChainLadderHyp.R
 \name{ChainLadderHyp}
 \alias{ChainLadderHyp}
-\title{Verify chain ladder hypothes}
+\title{Verify chain ladder hypothesis}
 \usage{
 ChainLadderHyp(triangle, weight = NA)
 }
 \arguments{
-\item{triangle}{Undevelopped triangle as a matrix}
+\item{triangle}{Cumulated triangle as a matrix}
 
-\item{weight}{Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no}
+\item{weight}{Boolean matrix the same size of the triangle to tell if the valueis to be considered: 1 for yes, 0 for no. First column is not considered}
 }
 \value{
-a plot to confirm the hypothesis
+values and a plot to confirm the hypothesis
 }
 \description{
 \code{ChainLadderHype} verifies that there is no inflation by ploting the residuals by calendar year.

@@ -7,10 +7,10 @@
 Settlement(triangle)
 }
 \arguments{
-\item{triangle}{Undevelopped triangle as a matrix}
+\item{triangle}{Cumulated triangle as a matrix}
 }
 \value{
-a plot
+values and a plot to confirm the hypothesis
 }
 \description{
 \code{Settlement} plots the settlement rate for each development year.

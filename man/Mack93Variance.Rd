@@ -7,9 +7,9 @@
 Mack93Variance(triangle, weight = NA)
 }
 \arguments{
-\item{triangle}{Undevelopped triangle as a matrix}
+\item{triangle}{Cumulated triangle as a matrix. The matrix must have same dimension on row and columns}
 
-\item{weight}{Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no}
+\item{weight}{Boolean matrix the same size of the triangle to tell if the value is to be considered: 1 for yes, 0 for no. First column is not considered}
 }
 \value{
 A list containing the following objects:
@@ -19,7 +19,7 @@ A list containing the following objects:
   \item{ibnrVarTot: total variance on ibnr}}
 }
 \description{
-\code{Mack93Variance} computes the variances coefficients for each devellopment year
+\code{Mack93Variance} computes the variances coefficients for each development year
 }
 \details{
 Implementation of the technique for error estimation developed by Mack in its 1993 article.

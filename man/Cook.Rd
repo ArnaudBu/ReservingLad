@@ -7,10 +7,10 @@
 Cook(triangle)
 }
 \arguments{
-\item{triangle}{Undevelopped triangle as a matrix}
+\item{triangle}{Cumulated triangle as a matrix}
 }
 \value{
-a plot to displaying the Cook's distances
+a data.frame with Cook's distances as well as a plot displaying them
 }
 \description{
 \code{Cook} plots Cook's distance for each age to age factor relatively to the linear model they belong.

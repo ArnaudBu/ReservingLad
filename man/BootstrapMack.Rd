@@ -7,11 +7,11 @@
 BootstrapMack(triangle, nBoot = 1000, weight = NA)
 }
 \arguments{
-\item{triangle}{Undevelopped triangle as a matrix}
+\item{triangle}{Cumulated triangle as a matrix.  The matrix should be square}
 
 \item{nBoot}{Number of samples. Default value to 1000}
 
-\item{weight}{Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no}
+\item{weight}{Boolean matrix the same size of the triangle to tell if the value is to be considered: 1 for yes, 0 for no. First column is not considered}
 }
 \value{
 A list containing the following objects:

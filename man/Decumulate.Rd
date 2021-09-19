@@ -7,7 +7,7 @@
 Decumulate(triangle)
 }
 \arguments{
-\item{triangle}{Undevelopped triangle as a matrix}
+\item{triangle}{Cumulated triangle as a matrix}
 }
 \value{
 The decumulated triangle as a matrix

@@ -7,7 +7,7 @@
 BornFerg(triangle, ultimateClaims, coeffs = "CL", weight = NA)
 }
 \arguments{
-\item{triangle}{Undevelopped triangle as a matrix.}
+\item{triangle}{Cumulated triangle as a matrix.}
 
 \item{ultimateClaims}{Ultimate claims by accident year.}
 
@@ -16,7 +16,7 @@ BornFerg(triangle, ultimateClaims, coeffs = "CL", weight = NA)
   \item{CL: Same coefficient as Chain Ladder}
   \item{full: Take the coefficient computed from full lines}}}
 
-\item{weight}{Used only if coeff = "CL". Boolean matrix with 1 row and 1 column less than the triangle to tell if the link ratio is to be considered: 1 for yes, 0 for no.}
+\item{weight}{Used only if coeff = "CL". Boolean matrix the same size of the triangle to tell if the value is to be considered: 1 for yes, 0 for no. First column is not considered}
 }
 \value{
 A list containing the following objects:

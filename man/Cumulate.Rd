@@ -7,7 +7,7 @@
 Cumulate(triangle)
 }
 \arguments{
-\item{triangle}{Undevelopped triangle as a matrix}
+\item{triangle}{Non cumulated triangle as a matrix}
 }
 \value{
 The cumulated triangle as a matrix

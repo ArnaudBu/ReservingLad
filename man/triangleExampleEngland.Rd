@@ -4,7 +4,9 @@
 \name{triangleExampleEngland}
 \alias{triangleExampleEngland}
 \title{England dataset}
-\format{An object of class \code{"matrix"}.}
+\format{
+An object of class \code{"matrix"}.
+}
 \source{
 https://pdfs.semanticscholar.org/9093/f7faff74391892a9c61e4702697e888d9adb.pdf
 }

@@ -4,15 +4,21 @@
 \alias{Payments2Triangle}
 \title{Converts Payments to a triangle}
 \usage{
-Payments2Triangle(accidentDate, transactionDate, cashFlows, years = NA,
-  mode = "year", evalDate = "01-01")
+Payments2Triangle(
+  accidentDate,
+  transactionDate,
+  cashFlows,
+  years = NA,
+  mode = "year",
+  evalDate = "01-01"
+)
 }
 \arguments{
-\item{accidentDate}{Date vector. Reference date for the triangle: accident date or underwriting date depending on the axis}
+\item{accidentDate}{Date vector. Reference date for the triangle: accident date or underwriting date depending on the reference}
 
-\item{transactionDate}{Date vector. Date of transaction}
+\item{transactionDate}{Date vector. Date of transaction.}
 
-\item{cashFlows}{Numeric vector. Cash flows corresponding to the reference date and made at transactionDate}
+\item{cashFlows}{Numeric vector. Cash flows corresponding to the reference date and made at transaction date.}
 
 \item{years}{Numeric vector. Years to include in the analysis. By default, all years are taken.}
 
@@ -23,11 +29,31 @@ Payments2Triangle(accidentDate, transactionDate, cashFlows, years = NA,
 \item{year: aggregation on yearly step from evalDate for both accident and development period}
 \item{yearRef: aggregation on fiscal years for accident periods and a first development period corresponding to the timelapse between beginning of the year and evalDate}}}
 
-\item{evalDate}{String. date of evaluation, with format "m-d" (ex: "12-23"). All data after this date for the maximal year will not be considered.}
+\item{evalDate}{String. Date of evaluation, with format "m-d" (ex: "12-23"). All data after this date for the maximal year will not be considered.}
 }
 \value{
-the triangle as a matrix
+Triangle as a matrix
 }
 \description{
 \code{Payments2Triangle} converts a list of cash flows to a triangle.
+}
+\examples{
+library(lubridate)
+library(data.table)
+origin_claim <- as.Date("2010-01-03")
+origin_transaction <- as.Date("2010-01-25")
+dates_claim <- origin_claim \%m+\% months(0:59)
+dates_transaction <- origin_transaction \%m+\% months(0:59)
+d <- data.table(expand.grid(dates_claim, dates_transaction))
+colnames(d) <- c("date_claim", "date_transaction")
+d <- d[date_claim < date_transaction]
+d$amount <- 1:1
+Payments2Triangle(d$date_claim, d$date_transaction, d$amount, years = NA, mode = "yearRef", evalDate = "01-01")
+Payments2Triangle(d$date_claim, d$date_transaction, d$amount, years = 2011:2014, mode = "yearRef", evalDate = "01-01")
+Payments2Triangle(d$date_claim, d$date_transaction, d$amount, years = NA, mode = "yearRef", evalDate = "04-05")
+Payments2Triangle(d$date_claim, d$date_transaction, d$amount, years = NA, mode = "year", evalDate = "01-01")
+Payments2Triangle(d$date_claim, d$date_transaction, d$amount, years = NA, mode = "year", evalDate = "04-05")
+Payments2Triangle(d$date_claim, d$date_transaction, d$amount, years = NA, mode = "semester", evalDate = "01-01")
+Payments2Triangle(d$date_claim, d$date_transaction, d$amount, years = NA, mode = "quarter", evalDate = "01-01")
+
 }
